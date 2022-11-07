@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.converts.DmTypeConvert;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
@@ -58,7 +59,7 @@ public class GenteratorCode {
         //Author设置作者
         globalConfig.setAuthor("fwh");
         //开启 Swagger2 注解
-        globalConfig.setSwagger2(false);
+        globalConfig.setSwagger2(true);
         //是否覆盖文件
         globalConfig.setFileOverride(true);
         // 开启 ActiveRecord 模式
@@ -81,10 +82,11 @@ public class GenteratorCode {
          * 数据源配置
          */
         DataSourceConfig dataSourceConfig = new DataSourceConfig();
-        // 数据库类型,默认MYSQL
-        dataSourceConfig.setDbType(DbType.MYSQL);
+        // 数据库类型,默认MYSQL 不同的数据库去对应其适配的了类即可
+        dataSourceConfig.setDbType(DbType.DM);
         //自定义数据类型转换
-        dataSourceConfig.setTypeConvert(new MySqlTypeConvert());
+//        dataSourceConfig.setTypeConvert(new MySqlTypeConvert());
+        dataSourceConfig.setTypeConvert(new DmTypeConvert());
         dataSourceConfig.setUrl(PropertiesUtils.getPropertyField("spring.datasource.url"));
         dataSourceConfig.setDriverName(PropertiesUtils.getPropertyField("spring.datasource.driver-class-name"));
         dataSourceConfig.setUsername(PropertiesUtils.getPropertyField("spring.datasource.username"));
@@ -119,6 +121,7 @@ public class GenteratorCode {
         /**
          * 自定义配置
          */
+
         InjectionConfig injectionConfig = new InjectionConfig() {
             @Override
             public void initMap() {
